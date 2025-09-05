@@ -8,7 +8,7 @@ export default function useAppAuth() {
         setLoading(true); setError(null);
 
         try {
-            const res = await fetch('',{
+            const res = await fetch('/api/v1/customer/login',{
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password })
             });
@@ -23,7 +23,7 @@ export default function useAppAuth() {
     const register = useCallback(async (payload: any) => {
         setLoading(true); setError(null);
         try {
-            const res = await fetch('', {
+            const res = await fetch('/api/v1/customer/register', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
