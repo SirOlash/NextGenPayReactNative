@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, Text, TextInput,TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, Alert} from 'react-native';
-import useAppAuth from './hooks/useAppAuth';
+import useAppAuth from '../src/hooks/useAppAuth';
 import { colors, spacing, radius, shadows } from './theme';
 import { Link, useRouter } from 'expo-router';
 
@@ -13,6 +13,7 @@ const LoginScreen: React.FC = () => {
   const handleLogin = async () => {
     try{
         const data = await login(email, password);
+        
         // TODO: save token with 
     }
   }
