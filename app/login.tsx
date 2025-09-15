@@ -2,17 +2,15 @@ import React, { useState } from 'react';
 import { SafeAreaView, View, Text, TextInput,TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform} from 'react-native';
 import useAppAuth from '../src/hooks/useAppAuth';
 import { colors, spacing, radius, shadows } from './theme';
-import { Link, useRouter } from 'expo-router';
-import { saveToken } from '@/src/utils/authStorage';
+import { Link } from 'expo-router';
 import { AuthContext } from '../src/context/AuthContext';
 import Toast from 'react-native-toast-message';
 
 const LoginScreen: React.FC = () => {
   const { signIn } = React.useContext(AuthContext);
-  const { login, error, loading } = useAppAuth();
+  const { login, loading } = useAppAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
 
   const handleLogin = async () => {
     try{
@@ -38,11 +36,11 @@ return (
           <View style={styles.card}>
             <Text style={styles.title}>Welcome back</Text>
 
-            <TextInput placeholder="Email" value={email} onChangeText={setEmail}
+            <TextInput placeholder="Email" value={email} onChangeText={text => { setEmail(text); Toast.hide(); }}
               placeholderTextColor={colors.muted} keyboardType="email-address" autoCapitalize="none"
               style={styles.input} />
 
-            <TextInput placeholder="Password" value={password} onChangeText={setPassword}
+            <TextInput placeholder="Password" value={password} onChangeText={text => { setPassword(text); Toast.hide(); }}
               secureTextEntry placeholderTextColor={colors.muted} style={styles.input} />
 
             <TouchableOpacity onPress={handleLogin} style={[styles.button, loading && styles.buttonDisabled]} disabled={loading}>
@@ -50,7 +48,7 @@ return (
             </TouchableOpacity>
 
             <View style={styles.row}>
-              <Text style={styles.small}>Don't have an account?</Text>
+              <Text style={styles.small}>Dont have an account?</Text>
               <Link href="/register"><Text style={styles.link}> Create one</Text></Link>
             </View>
           </View>

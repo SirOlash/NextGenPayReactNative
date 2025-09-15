@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, ReactNode } from "react";
 import * as SecureStore from "expo-secure-store";
 import {jwtDecode} from "jwt-decode";
-import { fetchUserByEmail } from "../services/api";
+import { fetchUserByEmail, getTransactions } from "../services/api";
 
 interface TokenPayload {
   exp: number;
@@ -34,9 +34,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [loading, setLoading] = useState(true)
 
     const signIn = async (token: string) => {
-        await SecureStore.setItemAsync(TOKEN_KEY, token)
-        const { email } = jwtDecode<TokenPayload>(token)
-        const userDetails = await fetchUserByEmail(email)
+        await SecureStore.setItemAsync(TOKEN_KEY, token);
+        const { email } = jwtDecode<TokenPayload>(token);
+        const userDetails = await fetchUserByEmail(email);
+        const { items } = await getTransactions(userDetails.accountNumber, 0,10);
         setUser(userDetails)
     }
 
